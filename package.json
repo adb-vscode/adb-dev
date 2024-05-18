@@ -1,0 +1,51 @@
+{
+  "name": "adb-dev",
+  "displayName": "adb-dev",
+  "description": "A vscode web extension that wraps adb and fastboot with webusb",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "browser": "./dist/web/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "adb-dev.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "scripts": {
+    "test": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/extensionTests.js",
+    "pretest": "npm run compile-web",
+    "vscode:prepublish": "npm run package-web",
+    "compile-web": "npm run check-types && npm run lint && node esbuild.js",
+    "watch-web": "npm-run-all -p watch-web:*",
+    "watch-web:esbuild": "node esbuild.js --watch",
+    "watch-web:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package-web": "npm run check-types && npm run lint && node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src --ext ts",
+    "run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.89.0",
+    "@types/mocha": "^10.0.6",
+    "@types/assert": "^1.5.10",
+    "eslint": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "mocha": "^10.4.0",
+    "typescript": "^5.4.5",
+    "@vscode/test-web": "^0.0.54",
+    "esbuild": "^0.20.2",
+    "glob": "^10.3.12",
+    "npm-run-all": "^4.1.5",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "assert": "^2.1.0"
+  }
+}
